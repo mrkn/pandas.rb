@@ -1,8 +1,7 @@
-# Pandas
+# Pandas wrapper for Ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pandas`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This library enables to directry call [pandas](http://pandas.pydata.org/) from Ruby language.
+This uses [pycall](https://github.com/mrkn/pycall).
 
 ## Installation
 
@@ -22,7 +21,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Example usage:
+
+```ruby
+require 'pandas'
+df = Pandas.read_csv('data/titanic.csv')
+
+puts df.groupby(:Sex)[:Survived].describe
+#         count      mean       std  min  25%  50%  75%  max
+# Sex
+# female  314.0  0.742038  0.438211  0.0  0.0  1.0  1.0  1.0
+# male    573.0  0.190227  0.392823  0.0  0.0  0.0  0.0  1.0
+
+puts df.groupby(:Sex)[:Age].describe
+#         count       mean        std   min   25%   50%   75%   max
+# Sex
+# female  314.0  27.719745  13.834740  0.75  18.0  27.0  36.0  63.0
+# male    573.0  30.431361  14.197273  0.42  21.0  28.0  38.0  80.0
+```
 
 ## Development
 
@@ -32,7 +48,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/mrkn/pandas.
+Bug reports and pull requests are welcome on GitHub at https://github.com/mrkn/pandas.rb.
 
 ## License
 
