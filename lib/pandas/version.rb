@@ -1,3 +1,1 @@
-module Pandas
-  VERSION = "0.1.0"
-end
+PANDAS_VERSION = "0.1.0"

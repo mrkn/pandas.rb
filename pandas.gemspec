@@ -5,7 +5,7 @@ require "pandas/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "pandas"
-  spec.version       = Pandas::VERSION
+  spec.version       = PANDAS_VERSION
   spec.authors       = ["Kenta Murata"]
   spec.email         = ["mrkn@mrkn.jp"]
 
@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "pycall", ">= 1.0.0"
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
