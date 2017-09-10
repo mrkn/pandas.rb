@@ -21,6 +21,24 @@ RSpec.describe Pandas do
     df = Pandas.read_csv(file_fixture('test.csv').to_s)
     expect(df).to be_a(Pandas::DataFrame)
   end
+
+  describe '.options.display' do
+    specify do
+      expect(Pandas.options.display.max_rows).to be_a(Integer)
+
+      begin
+        origin_value = Pandas.options.display.max_rows
+        half = origin_value >> 1
+        expect {
+          Pandas.options.display.max_rows = half
+        }.to change {
+          Pandas.options.display.max_rows
+        }.to(half)
+      ensure
+        Pandas.options.display.max_rows = origin_value
+      end
+    end
+  end
 end
 
 module Pandas

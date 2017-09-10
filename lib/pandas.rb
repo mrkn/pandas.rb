@@ -16,4 +16,6 @@ module Pandas
   Index = self.core.index.Index
   DataFrameGroupBy = self.core.groupby.DataFrameGroupBy
   SeriesGroupBy = self.core.groupby.SeriesGroupBy
+
+  require 'pandas/options'
 end
