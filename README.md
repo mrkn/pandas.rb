@@ -1,5 +1,7 @@
 # Pandas wrapper for Ruby
 
+[![Build Status](https://travis-ci.org/mrkn/pandas.rb.svg)](https://travis-ci.org/mrkn/pandas.rb)
+
 This library enables to directry call [pandas](http://pandas.pydata.org/) from Ruby language.
 This uses [pycall](https://github.com/mrkn/pycall).
 
