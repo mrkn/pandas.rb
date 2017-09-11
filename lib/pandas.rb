@@ -41,7 +41,15 @@ module Pandas
   def self.read_sql_table(table_name, conn, *args)
     if IO.is_activerecord_datasource?(conn)
       require 'pandas/io/active_record'
-      return IO.read_sql_table_from_active_record(table_name, conn, *args)
+      return IO::Helpers.read_sql_table_from_active_record(table_name, conn, *args)
+    end
+    super
+  end
+
+  def self.read_sql_query(query, conn, *args)
+    if IO.is_activerecord_datasource?(conn)
+      require 'pandas/io/active_record'
+      return IO::Helpers.read_sql_query_from_active_record(query, conn, *args)
     end
     super
   end
