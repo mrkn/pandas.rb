@@ -7,15 +7,35 @@ module Pandas
   Object.send :remove_const, :PANDAS_VERSION
 
   DataFrame = self.core.frame.DataFrame
+  DataFrame.__send__ :register_python_type_mapping
+
   Series = self.core.series.Series
+  Series.__send__ :register_python_type_mapping
+
   IlocIndexer = self.core.indexing._iLocIndexer
+  IlocIndexer.__send__ :register_python_type_mapping
+
   LocIndexer = self.core.indexing._LocIndexer
+  LocIndexer.__send__ :register_python_type_mapping
+
   IXIndexer = self.core.indexing._IXIndexer
+  IXIndexer.__send__ :register_python_type_mapping
+
   MultiIndex = self.core.indexing.MultiIndex
+  MultiIndex.__send__ :register_python_type_mapping
+
   DatetimeIndex = self.core.indexes.datetimes.DatetimeIndex
+  DatetimeIndex.__send__ :register_python_type_mapping
+
   Index = self.core.index.Index
+  Index.__send__ :register_python_type_mapping
+
   DataFrameGroupBy = self.core.groupby.DataFrameGroupBy
+  DataFrameGroupBy.__send__ :register_python_type_mapping
+
   SeriesGroupBy = self.core.groupby.SeriesGroupBy
+  SeriesGroupBy.__send__ :register_python_type_mapping
+
   IO = self.io
 
   def self.read_sql_table(table_name, conn, *args)
