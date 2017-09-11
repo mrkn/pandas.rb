@@ -46,6 +46,7 @@ module Pandas
     super
   end
 
+  require 'pandas/data_frame'
   require 'pandas/io'
   require 'pandas/options'
 end
