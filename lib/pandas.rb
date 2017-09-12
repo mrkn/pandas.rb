@@ -38,7 +38,18 @@ module Pandas
 
   IO = self.io
 
-  def self.read_sql_table(table_name, conn, *args)
+  def self.read_sql_table(table_name, conn=nil, *args)
+    if conn.nil? && IO.is_activerecord_model?(table_name)
+      unless table_name.table_name
+        raise ArgumentError, "The given model does not have its table_name"
+      end
+      table_name, conn = table_name.table_name, table_name.connection
+    end
+
+    unless conn
+      raise ArgumentError, "wrong number of arguments (given 1, expected 2+)"
+    end
+
     if IO.is_activerecord_datasource?(conn)
       require 'pandas/io/active_record'
       return IO::Helpers.read_sql_table_from_active_record(table_name, conn, *args)
