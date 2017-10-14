@@ -24,7 +24,11 @@ module Pandas
   MultiIndex = self.core.indexing.MultiIndex
   MultiIndex.__send__ :register_python_type_mapping
 
-  DatetimeIndex = self.core.indexes.datetimes.DatetimeIndex
+  if self.core.respond_to? :indexes #Pandas -v > 0.20.0
+    DatetimeIndex = self.core.indexes.datetimes.DatetimeIndex
+  else
+    DatetimeIndex = self.tseries.index.DatetimeIndex
+  end
   DatetimeIndex.__send__ :register_python_type_mapping
 
   Index = self.core.index.Index
