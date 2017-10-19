@@ -2,6 +2,12 @@
 
 ## 0.3.0
 
+* Fix the module path of `DatetimeIndex` to support pandas < 0.20
+
+  Fixes #5
+
+  *Daniel Baark*
+
 * Support to pass an AR model class to `read_sql_table` instead of both `table_name` and `conn`
 
 ## 0.2.0
