@@ -19,6 +19,7 @@ addons:
 env:
   matrix:
   - PYTHON=python
+  - PYTHON=python3
   - LIBPYTHON=/opt/python/3.5.3/lib/libpython3.5m.so
 
 before_install:
@@ -26,8 +27,8 @@ before_install:
   - gem update bundler
 
 before_script:
-  - pip install pandas
-  - pip3 install numpy
+  - pip install --user -r requirements.txt
+  - pip3 install --user -r requirements.txt
 
 matrix:
   allow_failures:
