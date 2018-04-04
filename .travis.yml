@@ -18,7 +18,7 @@ before_install:
   - gem update bundler
 
 before_script:
-  - pip install --us↑er -r requirements.txt
+  - pip install --user -r requirements.txt
   - PYENV_VERSION=3.6 pip3 install --user -r requirements.txt
 
 matrix:
