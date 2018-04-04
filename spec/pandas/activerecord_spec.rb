@@ -47,6 +47,14 @@ insert into people (id, name, age, sex) values (#{row['id']}, "#{row['name']}", 
         df_csv = Pandas.read_csv(file_fixture('people.csv').to_s)
         expect(df_ar).to eq(df_csv)
       end
+
+      context 'with index_col: :id' do
+        it 'reads from the table of the given model class' do
+          df_ar  = Pandas.read_sql_table(PandasActiveRecordSpec::Person, index_col: :id)
+          df_csv = Pandas.read_csv(file_fixture('people.csv').to_s)
+          expect(df_ar.reset_index).to eq(df_csv)
+        end
+      end
     end
   end
 
@@ -58,6 +66,16 @@ select name, sex from people;
         SQL
         df_csv = Pandas.read_csv(file_fixture('people.csv').to_s)
         expect(df_ar).to eq(df_csv[[:name, :sex]])
+      end
+
+      context 'with index_col: :id' do
+        it 'reads from ActiveRecord connection' do
+          df_ar  = Pandas.read_sql_query(<<-SQL, ActiveRecord::Base.connection, index_col: :id)
+select id, name, sex from people;
+          SQL
+          df_csv = Pandas.read_csv(file_fixture('people.csv').to_s)
+          expect(df_ar.reset_index(drop: true)).to eq(df_csv[[:name, :sex]])
+        end
       end
     end
   end

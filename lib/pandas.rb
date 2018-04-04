@@ -42,7 +42,7 @@ module Pandas
 
   IO = self.io
 
-  def self.read_sql_table(table_name, conn=nil, *args)
+  def self.read_sql_table(table_name, conn=nil, *args, **kwargs)
     if conn.nil? && IO.is_activerecord_model?(table_name)
       unless table_name.table_name
         raise ArgumentError, "The given model does not have its table_name"
@@ -56,15 +56,15 @@ module Pandas
 
     if IO.is_activerecord_datasource?(conn)
       require 'pandas/io/active_record'
-      return IO::Helpers.read_sql_table_from_active_record(table_name, conn, *args)
+      return IO::Helpers.read_sql_table_from_active_record(table_name, conn, *args, **kwargs)
     end
     super
   end
 
-  def self.read_sql_query(query, conn, *args)
+  def self.read_sql_query(query, conn, *args, **kwargs)
     if IO.is_activerecord_datasource?(conn)
       require 'pandas/io/active_record'
-      return IO::Helpers.read_sql_query_from_active_record(query, conn, *args)
+      return IO::Helpers.read_sql_query_from_active_record(query, conn, *args, **kwargs)
     end
     super
   end
