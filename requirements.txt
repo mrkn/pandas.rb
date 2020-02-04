@@ -1,2 +1,2 @@
-pandas==0.22.*
-sqlalchemy==1.2.*
+pandas
+sqlalchemy

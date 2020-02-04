@@ -1,5 +1,9 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.2
+
+* Fix for pandas 1.0
+
 ## 0.3.1
 
 * Fix `Pandas.read_sql_table` for passing optional parameters such as `index_col`

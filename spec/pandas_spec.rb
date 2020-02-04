@@ -10,7 +10,9 @@ RSpec.describe Pandas do
     expect(Pandas).to be_const_defined(:Series)
     expect(Pandas).to be_const_defined(:IlocIndexer)
     expect(Pandas).to be_const_defined(:LocIndexer)
-    expect(Pandas).to be_const_defined(:IXIndexer)
+    if Pandas.__version__ < "1.0"
+      expect(Pandas).to be_const_defined(:IXIndexer)
+    end
     expect(Pandas).to be_const_defined(:MultiIndex)
     expect(Pandas).to be_const_defined(:Index)
     expect(Pandas).to be_const_defined(:DataFrameGroupBy)

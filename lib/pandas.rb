@@ -1,7 +1,7 @@
 require "pandas/version"
 require "pycall"
 
-Pandas = PyCall.import_module('pandas')
+Pandas = PyCall.import_module("pandas")
 module Pandas
   VERSION = PANDAS_VERSION
   Object.send :remove_const, :PANDAS_VERSION
@@ -18,20 +18,30 @@ module Pandas
   LocIndexer = self.core.indexing._LocIndexer
   LocIndexer.__send__ :register_python_type_mapping
 
-  IXIndexer = self.core.indexing._IXIndexer
-  IXIndexer.__send__ :register_python_type_mapping
+  if self.__version__ < "1.0"
+    IXIndexer = self.core.indexing._IXIndexer
+    IXIndexer.__send__ :register_python_type_mapping
+  end
 
-  MultiIndex = self.core.indexing.MultiIndex
+  if self.__version__ >= "1.0"
+    MultiIndex = self.core.indexes.multi.MultiIndex
+  else
+    MultiIndex = self.core.indexing.MultiIndex
+  end
   MultiIndex.__send__ :register_python_type_mapping
 
-  DatetimeIndex = if self.__version__ >= '0.20'
+  DatetimeIndex = if self.__version__ >= "0.20"
                     self.core.indexes.datetimes.DatetimeIndex
                   else
                     self.tseries.index.DatetimeIndex
                   end
   DatetimeIndex.__send__ :register_python_type_mapping
 
-  Index = self.core.index.Index
+  if self.__version__ >= "1.0"
+    Index = self.core.indexes.base.Index
+  else
+    Index = self.core.index.Index
+  end
   Index.__send__ :register_python_type_mapping
 
   DataFrameGroupBy = self.core.groupby.DataFrameGroupBy
