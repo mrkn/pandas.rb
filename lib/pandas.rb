@@ -82,4 +82,5 @@ module Pandas
   require 'pandas/data_frame'
   require 'pandas/io'
   require 'pandas/options'
+  require 'pandas/series'
 end
