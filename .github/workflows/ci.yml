@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ubuntu-18.04
+        - ubuntu-latest
         - macos-latest
         ruby_version:
         - 2.7.x
@@ -52,6 +52,16 @@ jobs:
     - name: Prepare environment
       run: |
         gem install bundler
+
+    - name: Prepare environment on Ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get install libsqlite3-dev
+
+    - name: Prepare environment on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install sqlite3
 
     - name: Install requirements
       run: |
