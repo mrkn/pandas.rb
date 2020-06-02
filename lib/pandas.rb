@@ -1,5 +1,5 @@
 require "pandas/version"
-require "pycall"
+require "numpy"
 
 Pandas = PyCall.import_module("pandas")
 module Pandas
