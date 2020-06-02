@@ -1,14 +1,7 @@
 require 'pandas'
 
 module Pandas
-  class Series
-    def [](*key)
-      if key.length == 1 && key[0].is_a?(Array)
-        key[0] = PyCall::List.new(key[0])
-      end
-      super
-    end
-
+  class Index
     def monotonic?
       is_monotonic
     end
