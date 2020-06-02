@@ -3,8 +3,16 @@ require 'pandas'
 module Pandas
   class Series
     def [](*key)
-      if key.length == 1 && key[0].is_a?(Array)
-        key[0] = PyCall::List.new(key[0])
+      if key.length == 1
+        case key[0]
+        when Array
+          key[0] = PyCall::List.new(key[0])
+        when Range
+          case key[0].begin
+          when String
+            key[0] = key[0].begin ... key[0].end # force exclude-end
+          end
+        end
       end
       super
     end
