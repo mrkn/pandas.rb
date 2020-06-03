@@ -22,10 +22,30 @@ module Pandas
       end
     end
 
+    describe '#iloc[key]' do
+      context 'When the key is an integer' do
+        specify do
+          expect(df.iloc[2]).to eq(values[2])
+        end
+      end
+
+      context 'When the key is an array' do
+        let(:expected_result) do
+          Pandas::DataFrame.new([values[2], values[0], values[1]],
+                                index: %w[r3 r1 r2],
+                                columns: df.columns)
+        end
+
+        specify do
+          expect(df.iloc[[2, 0, 1]]).to eq(expected_result)
+        end
+      end
+    end
+
     describe '#loc[key]' do
       context 'When the key is a String' do
         specify do
-          expect(df.loc["r3"]).to eq([9, 10, 11, 12])
+          expect(df.loc["r3"]).to eq(values[2])
         end
       end
 
