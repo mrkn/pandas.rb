@@ -82,6 +82,7 @@ module Pandas
   require 'pandas/data_frame'
   require 'pandas/index'
   require 'pandas/io'
+  require 'pandas/loc_indexer'
   require 'pandas/options'
   require 'pandas/series'
 end
