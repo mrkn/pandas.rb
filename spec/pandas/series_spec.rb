@@ -23,6 +23,24 @@ module Pandas
           expect(series[index]).to eq(Series.new([5, 1], index: index))
         end
       end
+
+      context 'When the key is a Range' do
+        subject(:series) do
+          Pandas::Series.new([10, 20, 30, 40], index: %w[x1 x2 x3 x4])
+        end
+
+        context 'The Range is close-end' do
+          specify do
+            expect(series["x2".."x3"]).to eq([20, 30])
+          end
+        end
+
+        context 'The Range is open-end' do
+          specify do
+            expect(series["x2"..."x4"].values).to eq([20, 30, 40])
+          end
+        end
+      end
     end
 
     describe '#monotonic?' do
