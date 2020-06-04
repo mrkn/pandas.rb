@@ -3,8 +3,10 @@ require 'pandas'
 module Pandas
   class LocIndexer
     def [](*keys)
-      if keys.length == 1 && keys[0].is_a?(Array)
-        keys[0] = PyCall::List.new(keys[0])
+      for i in 0...keys.length
+        if keys[i].is_a? Array
+          keys[i] = PyCall::List.new(keys[i])
+        end
       end
       super
     end
@@ -12,8 +14,10 @@ module Pandas
 
   class IlocIndexer
     def [](*keys)
-      if keys.length == 1 && keys[0].is_a?(Array)
-        keys[0] = PyCall::List.new(keys[0])
+      for i in 0...keys.length
+        if keys[i].is_a? Array
+          keys[i] = PyCall::List.new(keys[i])
+        end
       end
       super
     end

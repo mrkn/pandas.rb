@@ -40,6 +40,18 @@ module Pandas
           expect(df.iloc[[2, 0, 1]]).to eq(expected_result)
         end
       end
+
+      context 'When two keys are given' do
+        specify do
+          expected_result = Pandas::DataFrame.new([[7, 5]], index: %w[r2], columns: %w[x3 x1])
+          expect(df.iloc[1, [2, 0]]).to eq(expected_result)
+        end
+
+        specify do
+          expected_result = Pandas::DataFrame.new([[7, 5], [3, 1]], index: %w[r2 r1], columns: %w[x3 x1])
+          expect(df.iloc[[1, 0], [2, 0]]).to eq(expected_result)
+        end
+      end
     end
 
     describe '#loc[key]' do
@@ -58,6 +70,18 @@ module Pandas
 
         specify do
           expect(df.loc[["r3", "r1"]]).to eq(expected_result)
+        end
+      end
+
+      context 'When two keys are given' do
+        specify do
+          expected_result = Pandas::DataFrame.new([[7, 5]], index: %w[r2], columns: %w[x3 x1])
+          expect(df.loc["r2", ["x3", "x1"]]).to eq(expected_result)
+        end
+
+        specify do
+          expected_result = Pandas::DataFrame.new([[7, 5], [3, 1]], index: %w[r2 r1], columns: %w[x3 x1])
+          expect(df.loc[["r2", "r1"], ["x3", "x1"]]).to eq(expected_result)
         end
       end
     end
