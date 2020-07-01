@@ -2,10 +2,8 @@ require 'pandas'
 
 module Pandas
   class DataFrame
-    def [](*key)
-      if key.length == 1 && key[0].is_a?(Array)
-        key[0] = PyCall::List.new(key[0])
-      end
+    def [](key)
+      key = PyCall::List.new(key) if key.is_a?(Array)
       super
     end
   end
