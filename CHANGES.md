@@ -1,5 +1,17 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.3
+
+* Support array index in `Pandas::Series#[]`
+
+* Add predicate methods for `Pandas::Index` and `Pandas::Series`
+
+* Support closed-end string ranges in `Pandas::Series#[]`
+
+* Support string array index in `Pandas::DataFrame#loc[]`
+
+* Support array index in `Pandas::DataFrame#iloc[]`
+
 ## 0.3.2
 
 * Fix for pandas 1.0
