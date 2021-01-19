@@ -5,12 +5,14 @@ on:
     branches:
     - master
   pull_request:
-    branches:
-    - master
+    types:
+    - opened
+    - synchronize
+    - reopened
 
 jobs:
   test:
-    name: Test
+    name: ${{ matrix.os}} ${{ matrix.ruby }} ${{ matrix.python }}-${{ matrix.python_arch }}
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -19,55 +21,49 @@ jobs:
         os:
         - ubuntu-latest
         - macos-latest
-        ruby_version:
-        - 2.7.x
-        - 2.6.x
-        - 2.5.x
-        - 2.4.x
-        python_version:
+        ruby:
+        - 3.0
+        - 2.7
+        - 2.6
+        - 2.5
+        - 2.4
+        - debug
+        python:
         - 3.8.x
         - 3.7.x
         - 3.6.x
         - 2.7.x
-        python_architecture:
+        python_arch:
         - x64
+
     steps:
-    - name: Setup Ruby
-      if: matrix.ruby_version != 'master-nightly'
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby_version }}
-
-    - name: Setup Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python_version }}
-        architecture: ${{ matrix.python_architecture }}
-
-    - name: Checkout
-      uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       with:
         fetch-depth: 1
 
-    - name: Prepare environment
-      run: |
-        gem install bundler
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
 
-    - name: Prepare environment on Ubuntu
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python }}
+        architecture: ${{ matrix.python_arch }}
+
+    - run: sudo apt-get install libsqlite3-dev
       if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get install libsqlite3-dev
 
-    - name: Prepare environment on macOS
+    - run: brew install sqlite3
       if: matrix.os == 'macos-latest'
-      run: |
-        brew install sqlite3
 
-    - name: Install requirements
-      run: |
-        pip install -r requirements.txt
-        bundle install
+    - run: pip install -r requirements.txt
 
-    - name: Test
-      run: |
-        PYTHON=python bundle exec rake
+    - run: gem install bundler
+    - run: bundle install
+
+    - run: bundle exec rake
+      env:
+        PYTHON: python
+
+    - run: rake build
+    - run: gem install pkg/*.gem
