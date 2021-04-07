@@ -32,5 +32,13 @@ module Pandas
     def unique?
       is_unique
     end
+
+    def length
+      size
+    end
+
+    def to_a
+      Array.new(length) {|i| self[i] }
+    end
   end
 end

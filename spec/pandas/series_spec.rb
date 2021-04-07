@@ -105,5 +105,21 @@ module Pandas
         expect(s).not_to be_unique
       end
     end
+
+    describe "#length" do
+      specify do
+        s = Pandas::Series.new([1, 2, 3, 4, 5])
+        expect(s.length).to eq(5)
+      end
+    end
+
+    describe "#to_a" do
+      specify do
+        s = Pandas::Series.new([1, 2, 3, 4, 5])
+        a = s.to_a
+        expect(a).to be_an(Array)
+        expect(a).to eq([1, 2, 3, 4, 5])
+      end
+    end
   end
 end
