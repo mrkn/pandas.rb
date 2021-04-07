@@ -64,5 +64,21 @@ module Pandas
         expect(idx).not_to be_unique
       end
     end
+
+    describe "#length" do
+      specify do
+        idx = Pandas::Index.new([1, 2, 3, 4, 5])
+        expect(idx.length).to eq(5)
+      end
+    end
+
+    describe "#to_a" do
+      specify do
+        idx = Pandas::Index.new([1, 2, 3, 4, 5])
+        a = idx.to_a
+        expect(a).to be_an(Array)
+        expect(a).to eq([1, 2, 3, 4, 5])
+      end
+    end
   end
 end
