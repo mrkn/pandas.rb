@@ -79,6 +79,22 @@ module Pandas
         expect(a).to be_an(Array)
         expect(a).to eq([1, 2, 3, 4, 5])
       end
+
+      context "after dropna" do
+        specify "without NaNs" do
+          s = Pandas::Index.new([1, 2, 3, 4, 5])
+          a = s.dropna.to_a
+          expect(a).to be_an(Array)
+          expect(a).to eq([1, 2, 3, 4, 5])
+        end
+
+        specify "with NaNs" do
+          s = Pandas::Index.new([1, 2, nil, 4, 5])
+          a = s.dropna.to_a
+          expect(a).to be_an(Array)
+          expect(a).to eq([1, 2, 4, 5])
+        end
+      end
     end
   end
 end
