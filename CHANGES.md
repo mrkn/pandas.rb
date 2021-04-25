@@ -1,5 +1,11 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.4
+
+* Add `to_a` methods in `Pandas::Series` and `Pandas::Index`
+
+* Add `length` method in `Pandas::Series` and `Pandas::Index`
+
 ## 0.3.3
 
 * Support array index in `Pandas::Series#[]`
