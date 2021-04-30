@@ -38,7 +38,7 @@ module Pandas
     end
 
     def to_a
-      Array.new(length) {|i| self[i] }
+      Array.new(length) {|i| self.iloc[i] }
     end
   end
 end
