@@ -1,5 +1,9 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.5
+
+* Fix the bug of `to_a` for Series after doing dropna
+
 ## 0.3.4
 
 * Add `to_a` methods in `Pandas::Series` and `Pandas::Index`
