@@ -25,5 +25,9 @@ module Pandas
     def to_a
       Array.new(length) {|i| self[i] }
     end
+
+    def to_narray
+      to_numpy.to_narray
+    end
   end
 end
