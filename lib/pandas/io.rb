@@ -1,4 +1,4 @@
-require 'pandas'
+require 'pandas' unless defined?(Pandas)
 
 module Pandas
   module IO
