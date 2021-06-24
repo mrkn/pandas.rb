@@ -1,5 +1,9 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.7
+
+* Avoid circular require warning
+
 ## 0.3.6
 
 * Add `to_narray` in `Pandas::DataFrame`, `Pandas::Series`, and `Pandas::Index`
