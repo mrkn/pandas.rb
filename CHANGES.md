@@ -1,5 +1,9 @@
 # The chenge history of Pandas wrapper for Ruby
 
+## 0.3.8
+
+* Add `to_iruby_mimebundle` in `Pandas::DataFrame`
+
 ## 0.3.7
 
 * Avoid circular require warning
