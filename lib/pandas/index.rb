@@ -2,10 +2,6 @@ require 'pandas' unless defined?(Pandas)
 
 module Pandas
   class Index
-    def monotonic?
-      is_monotonic
-    end
-
     def monotonic_decreasing?
       is_monotonic_decreasing
     end
