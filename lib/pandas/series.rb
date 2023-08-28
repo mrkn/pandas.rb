@@ -17,10 +17,6 @@ module Pandas
       super
     end
 
-    def monotonic?
-      is_monotonic
-    end
-
     def monotonic_decreasing?
       is_monotonic_decreasing
     end
