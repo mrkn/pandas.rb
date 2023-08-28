@@ -12,7 +12,7 @@ require 'csv'
 
   before do
     PyCall.with(engine.connect) do |conn|
-      conn.execute <<-SQL
+      conn.execute sqlalchemy.text(<<-SQL)
 create table people (
   id integer primary key,
   name string,
@@ -22,10 +22,12 @@ create table people (
       SQL
       csv = CSV.read(file_fixture('people.csv'), headers: :first_row)
       csv.each do |row|
-        conn.execute <<-SQL
+        conn.execute sqlalchemy.text(<<-SQL)
 insert into people (id, name, age, sex) values (#{row['id']}, "#{row['name']}", #{row['age']}, "#{row['sex']}");
         SQL
       end
+
+      conn.commit
     end
   end
 
