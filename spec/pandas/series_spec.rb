@@ -43,6 +43,72 @@ module Pandas
       end
     end
 
+    describe '#[key]=' do
+      let(:series) do
+        Series.new([5, 8, -2, 1], index: ['c', 'a', 'd', 'b'])
+      end
+
+      let(:index) do
+        ['c', 'b']
+      end
+
+      context 'When the key is a PyCall::List' do
+        specify do
+          list = PyCall::List.new(index)
+          series[list] = 100
+          expect(series).to eq(Series.new([100, 8, -2, 100], index: series.index))
+        end
+
+        specify do
+          list = PyCall::List.new(index)
+          series[list] = [100, 200]
+          expect(series).to eq(Series.new([100, 8, -2, 200], index: series.index))
+        end
+      end
+
+      context 'When the key is an Array' do
+        specify do
+          series[index] = 100
+          expect(series).to eq(Series.new([100, 8, -2, 100], index: series.index))
+        end
+
+        specify do
+          series[index] = [100, 200]
+          expect(series).to eq(Series.new([100, 8, -2, 200], index: series.index))
+        end
+      end
+
+      context 'When the key is a Range' do
+        subject(:series) do
+          Pandas::Series.new([10, 20, 30, 40], index: %w[x1 x2 x3 x4])
+        end
+
+        context 'The Range is close-end' do
+          specify do
+            series["x2".."x3"] = 100
+            expect(series).to eq([10, 100, 100, 40])
+          end
+
+          specify do
+            series["x2".."x3"] = [100, 200]
+            expect(series).to eq([10, 100, 200, 40])
+          end
+        end
+
+        context 'The Range is open-end' do
+          specify do
+            series["x2"..."x4"] = 100
+            expect(series).to eq([10, 100, 100, 100])
+          end
+
+          specify do
+            series["x2"..."x4"] = [100, 200, 300]
+            expect(series).to eq([10, 100, 200, 300])
+          end
+        end
+      end
+    end
+
     describe '#monotonic_decreasing?' do
       specify do
         s = Pandas::Series.new([1, 2, 3, 4, 5])
