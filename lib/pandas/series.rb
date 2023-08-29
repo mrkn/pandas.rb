@@ -4,17 +4,33 @@ module Pandas
   class Series
     def [](*key)
       if key.length == 1
-        case key[0]
-        when Array
-          key[0] = PyCall::List.new(key[0])
-        when Range
-          case key[0].begin
-          when String
-            key[0] = key[0].begin ... key[0].end # force exclude-end
-          end
-        end
+        key[0] = fix_array_reference_key(key[0])
       end
       super
+    end
+
+    def []=(*args)
+      if args.length == 2
+        args[0] = fix_array_reference_key(args[0])
+      end
+      super
+    end
+
+    private def fix_array_reference_key(key)
+      case key
+      when Array
+        PyCall::List.new(key)
+      when Range
+        case key.begin
+        when String
+          # Force exclude-end
+          key.begin ... key.end
+        else
+          key
+        end
+      else
+        key
+      end
     end
 
     def monotonic_decreasing?
